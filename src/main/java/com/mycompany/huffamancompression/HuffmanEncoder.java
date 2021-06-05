@@ -17,38 +17,6 @@ public class HuffmanEncoder {
     
     final static int ALPHABET_SIZE = 256;
     
-    static class Node implements Comparable<Node>
-    {
-        public char character;
-        public int frequency;
-        Node right;
-        Node left;
-        
-        public Node(char character, int frequency, Node left, Node right)
-        {
-            this.character = character;
-            this.frequency = frequency;
-            this.left = left;
-            this.right = right;
-        }
-        
-        boolean isLeaf()
-        {
-            return this.left == null && this.right == null;
-        }
-
-        @Override
-        public int compareTo(Node o) {
-            
-            int frequencyCoparision = Integer.compare(this.frequency, o.character);
-            if(frequencyCoparision != 0)
-            {
-                return frequencyCoparision;
-            }
-            return Integer.compare(o.frequency, o.character);
-        }
-    }
-    
     public HuffmanEncodedResult compress(String data)
     {
         int[] frequency = buildFrequencyTable(data);
@@ -151,7 +119,6 @@ public class HuffmanEncoder {
             lookupTable.put(node.character, s);
         }
     }
-    
     static Map<Character, String> buildLookupTable(Node root)
     {
         Map<Character, String> lookupTable = new HashMap<>();
@@ -159,28 +126,6 @@ public class HuffmanEncoder {
         buildLookupTableImpl(root, "", lookupTable);
         
         return lookupTable;
-    }
-    
-    static class HuffmanEncodedResult
-    {
-        String encodedData;
-        Node root;
-        
-        public HuffmanEncodedResult(String encodedData, Node root)
-        {
-            this.encodedData = encodedData;
-            this.root = root;
-        }
-        
-        public Node getRoot()
-        {
-            return this.root;
-        }
-        
-        public String getEncodedData()
-        {
-            return this.encodedData;
-        }
     }
     
     public static void main(String args[])
